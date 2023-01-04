@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-depl
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: post
+  template:
+    metadata: 
+      labels: 
+        app: post
+    spec: 
+      containers:
+        - name: post
+          image: stupnikk/post:latest
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: post-clusterip-srv
+spec:
+  selector:
+    app: post
+  type: ClusterIP
+  ports:
+    - name: post
+      protocol: TCP
+      port: 4000
+      targetPort: 4000 
