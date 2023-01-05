@@ -1,0 +1,59 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy: 
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: stupnikk/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual: 
+          - src: 'src/**/*.js'
+            dest: .
+    - image: stupnikk/comments
+      context: comments
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual: 
+          - src: '*.js'
+            dest: .
+    - image: stupnikk/post
+      context: post
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual: 
+          - src: '*.js'
+            dest: .
+    - image: stupnikk/event-bus
+      context: event-bus
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual: 
+          - src: '*.js'
+            dest: .
+    - image: stupnikk/moderation
+      context: moderation
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual: 
+          - src: '*.js'
+            dest: .
+    - image: stupnikk/query
+      context: query
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual: 
+          - src: '*.js'
+            dest: .
+  

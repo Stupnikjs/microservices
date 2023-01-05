@@ -2,30 +2,29 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: event-bus-depl
-spec: 
+spec:
   replicas: 1
-  selector: 
+  selector:
     matchLabels:
       app: event-bus
   template:
-    metadata: 
-      labels: 
+    metadata:
+      labels:
         app: event-bus
-    spec: 
+    spec:
       containers:
         - name: event-bus
           image: stupnikk/event-bus
 ---
 apiVersion: v1
 kind: Service
-metadata: 
+metadata:
   name: event-bus-srv
 spec:
   selector:
     app: event-bus
-  type: ClusterIP
   ports:
     - name: event-bus
       protocol: TCP
       port: 4005
-      targetPort: 4005 
+      targetPort: 4005

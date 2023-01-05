@@ -12,7 +12,7 @@ const {type, data} = req.body
 
 if (type === 'CommentCreated' ){
     const status = data.content.includes('orange') ? 'rejected' : 'approved'; 
-    try{
+  
         await axios.post('http://event-bus-srv:4005/events', {
             type:'CommentModerated', 
             data: {
@@ -23,12 +23,7 @@ if (type === 'CommentCreated' ){
             }
         })
         res.send({})
-
-    } catch(err){
-        console.log(err.message)
-        res.status(404)
-        
-    }
+  
 }
 
 })

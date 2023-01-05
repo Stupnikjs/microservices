@@ -2,30 +2,29 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: comments-depl
-spec: 
+spec:
   replicas: 1
-  selector: 
+  selector:
     matchLabels:
       app: comments
   template:
-    metadata: 
-      labels: 
+    metadata:
+      labels:
         app: comments
-    spec: 
+    spec:
       containers:
         - name: comments
           image: stupnikk/comments
 ---
 apiVersion: v1
 kind: Service
-metadata: 
+metadata:
   name: comments-srv
 spec:
   selector:
     app: comments
-  type: ClusterIP
   ports:
     - name: comments
       protocol: TCP
       port: 4001
-      targetPort: 4001 
+      targetPort: 4001

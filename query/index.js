@@ -5,12 +5,19 @@ const cors = require("cors")
 
 const app = express()
 
+
+app.use(bodyParser.json())
+
+app.use(cors())
+
+
 const posts  = {}; 
 
 const handleEvent = (type, data) => {
 
     if (type === "PostCreated"){
         const {id, title } = data; 
+        
         posts[id] = {id, title, comments: []}; 
 
     }
@@ -33,9 +40,7 @@ const handleEvent = (type, data) => {
 }
 
 
-app.use(bodyParser.json())
 
-app.use(cors())
 
 app.get('/posts', (req,res) => {
     res.send(posts); 
